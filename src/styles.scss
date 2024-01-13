@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+// regular style toast
+@import 'ngx-toastr/toastr';
+
+
+:root{
+    --bg-body: #e7f6fc;
+    --bg-card: #8ecae6;
+    --primary-color: #219ebc;
+    --primary-light: #fff;
+    --secondary-light: #c8c8c8;
+    --secondary-color: #023047;
+}
+
+body{
+    background-color: var(--bg-body) !important ;
+    color: var(--text-color-light) !important;
+}
+.ml-1{
+    margin-left: 1rem;
+}
