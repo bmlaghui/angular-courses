@@ -28,7 +28,7 @@ export class PiechartComponent implements OnInit {
       }
     }
   };
-  public pieChartLabels = [ [ 'Download', 'Sales' ], [ 'In', 'Store', 'Sales' ], 'Mail Sales' ];
+  public pieChartLabels = [ 'Download Sales' ,  'In Store Sales' , 'Mail Sales' ];
   public pieChartDatasets = [ {
     data: [ 300, 500, 100 ]
   } ];

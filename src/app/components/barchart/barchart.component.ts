@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import jsPDF from 'jspdf';
@@ -6,58 +7,136 @@ import { NgChartsModule } from 'ng2-charts';
 @Component({
   selector: 'app-barchart',
   standalone: true,
-  imports: [NgChartsModule],
+  imports: [NgChartsModule, CommonModule],
   templateUrl: './barchart.component.html',
   styleUrls: ['./barchart.component.scss']
 })
 export class BarchartComponent implements OnInit {
+  isHourButtonActive: boolean = false;
+  isDayButtonActive: boolean = false;
+  isWeekButtonActive: boolean = false;
   public barChartTitle: string = 'Bar-Chart';
   public barChartLegend = true;
   public barChartPlugins = [];
   public barChartData: ChartData<'bar'> = {
-    labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
+    labels: [],
     datasets: [
     ]
   };
 
 
-  getLastHourData() {
-    // Implement your logic to update barChartData for the last hour
-    const newData: ChartData<'bar'> = {
-      labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
-      datasets: [
-        { data: [65, 59, 80, 81, 56, 55, 40], label: 'Last Hour A' },
-        { data: [28, 48, 40, 19, 86, 27, 90], label: 'Last Hour B' }
-      ]
-    };
-    // Update the chart data
-    this.barChartData = newData;
+  async getLastHourData() {
+    try {
+      const response = await fetch('./assets/datasets/charts/bar-chart/hour.json');
+      const data = await response.json();
+      console.log(data['data']);
+  
+      const datasets = Object.keys(data['data']).map((key, index) => {
+        const backgroundColors = [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          // Add more colors as needed
+        ];
+  
+        return {
+          data: data['data'][key],
+          label: key,
+          borderColor: 'black',
+          backgroundColor: backgroundColors[index % backgroundColors.length] // Cycle through colors
+        };
+      });
+  
+      const newData: ChartData<'bar'> = {
+        labels: data['labels'] as string[],
+        datasets: datasets
+      };
+  
+      this.barChartData = newData;
+      // Set the active class state
+      this.isHourButtonActive = true;
+      this.isDayButtonActive = false;
+      this.isWeekButtonActive = false;
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  async getLastDayData() {
+    try {
+      const response = await fetch('./assets/datasets/charts/bar-chart/day.json');
+      const data = await response.json();
+      console.log(data['data']);
+  
+      const datasets = Object.keys(data['data']).map((key, index) => {
+        const backgroundColors = [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          // Add more colors as needed
+        ];
+  
+        return {
+          data: data['data'][key],
+          label: key,
+          borderColor: 'black',
+          backgroundColor: backgroundColors[index % backgroundColors.length] // Cycle through colors
+        };
+      });
+  
+      const newData: ChartData<'bar'> = {
+        labels: data['labels'] as string[],
+        datasets: datasets
+      };
+  
+      this.barChartData = newData;
+      // Set the active class state
+      this.isHourButtonActive = false;
+      this.isDayButtonActive = true;
+      this.isWeekButtonActive = false;
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  getLastDayData() {
-    // Implement your logic to update barChartData for the last hour
-    const newData: ChartData<'bar'> = {
-      labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
-      datasets: [
-        { data: [85, 21, 33, 99, 10, 50, 100], label: 'Last Hour A' },
-        { data: [11, 15, 45, 8, 9, 60, 11], label: 'Last Hour B' }
-      ]
-    };
-    // Update the chart data
-    this.barChartData = newData;
-  }
+  async getLastWeekData() {
+    try {
+      const response = await fetch('./assets/datasets/charts/bar-chart/week.json');
+      const data = await response.json();
+      console.log(data['data']);
+  
+      const datasets = Object.keys(data['data']).map((key, index) => {
+        const backgroundColors = [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          // Add more colors as needed
+        ];
+  
+        return {
+          data: data['data'][key],
+          label: key,
+          borderColor: 'black',
+          backgroundColor: backgroundColors[index % backgroundColors.length] // Cycle through colors
+        };
+      });
+  
+      const newData: ChartData<'bar'> = {
+        labels: data['labels'] as string[],
+        datasets: datasets
+      };
+  
+      this.barChartData = newData;
+      // Set the active class state
+      this.isHourButtonActive = false;
+      this.isDayButtonActive = false;
+      this.isWeekButtonActive = true;
 
-  getLastWeekData() {
-    // Implement your logic to update barChartData for the last hour
-    const newData: ChartData<'bar'> = {
-      labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
-      datasets: [
-        { data: [60, 55, 31, 88, 46, 50, 99], label: 'Last Hour A' },
-        { data: [14, 11, 0, 66, 56, 99, 91], label: 'Last Hour B' }
-      ]
-    };
-    // Update the chart data
-    this.barChartData = newData;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {

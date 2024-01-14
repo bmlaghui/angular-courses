@@ -1,0 +1,61 @@
+{
+    "charts": [
+        {
+            "pie-chart": {
+                "labels": ["Download Sales", "In Store Sales", "Mail Sales"],
+                "averages": {
+                    "hour": [300, 500, 100],
+                    "day": [200, 700, 900],
+                    "week": [100, 300, 700]
+                }
+            }
+        },
+        {
+            "line-chart": {
+                "labels": ["January", "February", "March", "April", "May", "June", "July"],
+                "averages": {
+                    "hour": {"Series A": [65, 59, 80, 81, 56, 55, 40]},
+                    "day": {"Series A": [28, 48, 40, 19, 86, 27, 90]},
+                    "week": {"Series A": [18, 48, 77, 9, 100, 27, 40]}
+                }
+            }
+        },
+        {
+            "bar-chart": {
+                "labels": ["January", "February", "March", "April", "May", "June", "July"],
+                "averages": {
+                    "hour": {
+                        "Last Hour A": [60.25, 40.5, 56.25, 55, 83.5, 54, 70.5],
+                        "Last Hour B": [19.5, 31.5, 34, 18, 21.5, 43.5, 50.5]
+                    },
+                    "week": {
+                        "Last Hour A": [37, 33, 15.5, 44, 48, 75.5, 95],
+                        "Last Hour B": [14, 11, 0, 66, 56, 99, 91]
+                    }
+                }
+            }
+        },
+        {
+            "donutchart": {
+                "labels": ["Download Sales", "In Store Sales", "Mail Sales"],
+                "averages": {
+                    "hour": {
+                        "Last Hour A": [5, 5, 8],
+                        "Last Hour B": [9, 48, 55],
+                        "Last Hour C": [28, 48, 40]
+                    },
+                    "day": {
+                        "Last Day A": [0, 0, 100],
+                        "Last Day B": [11, 15, 45],
+                        "Last Day C": [11, 15, 45]
+                    },
+                    "week": {
+                        "Last Week A": [60, 55, 31],
+                        "Last Week B": [14, 11, 0],
+                        "Last Week C": [14, 11, 0]
+                    }
+                }
+            }
+        }
+    ]
+}

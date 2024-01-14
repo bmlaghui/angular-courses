@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 import jsPDF from 'jspdf';
 import { NgChartsModule } from 'ng2-charts';
+import * as data from '../../../assets/localData.json';
 
 @Component({
   selector: 'app-donughtchart',
@@ -35,6 +36,7 @@ export class DonughtchartComponent implements OnInit {
   };
 
   constructor() {
+    console.log(data);
   }
 
   ngOnInit() {
@@ -42,36 +44,50 @@ export class DonughtchartComponent implements OnInit {
   }
 
   getLastHourData() {
-    // Implement your logic to update barChartData for the last hour
-    const newData: ChartConfiguration<'doughnut'>['data']['datasets'] = [
-      { data: [ 65, 59, 80 ], label: 'Last Hour A' },
-      { data: [ 28, 48, 40 ], label: 'Last Hour B' },
-      { data: [ 28, 48, 40 ], label: 'Last Hour C' }
-    ];
-    // Update the chart data
+    // Assuming data is the variable holding your JSON data
+    const donutChart = data.charts.find(chart => 'donutchart' in chart)?.donutchart;
+  
+    if (donutChart) {
+      const newData: ChartConfiguration<'doughnut'>['data']['datasets'] = [
+        { data: donutChart.averages.hour['Last Hour A'], label: 'Last Hour A' },
+        { data: donutChart.averages.hour['Last Hour B'], label: 'Last Hour B' },
+        { data: donutChart.averages.hour['Last Hour C'], label: 'Last Hour C' }
+      ];
+  
+      this.updateDoughnutChartData(newData);
+    }
+  }
+  
+  private updateDoughnutChartData(newData: ChartConfiguration<'doughnut'>['data']['datasets']): void {
     this.doughnutChartDatasets = newData;
   }
+  
 
   getLastDayData() {
     // Implement your logic to update barChartData for the last hour
-    const newData: ChartConfiguration<'doughnut'>['data']['datasets'] = [
-      { data: [ 10, 21, 33 ], label: 'Last Day A' },
-      { data: [ 11, 15, 45 ], label: 'Last Day B' },
-      { data: [ 11, 15, 45 ], label: 'Last Day C' }
-    ];
-    // Update the chart data
-    this.doughnutChartDatasets = newData;
+    const donutChart = data.charts.find(chart => 'donutchart' in chart)?.donutchart;
+  
+    if (donutChart) {
+      const newData: ChartConfiguration<'doughnut'>['data']['datasets'] = [
+        { data: donutChart.averages.day['Last Day A'], label: 'Last Day A' },
+        { data: donutChart.averages.day['Last Day B'], label: 'Last Day B' },
+        { data: donutChart.averages.day['Last Day C'], label: 'Last Day C' }
+      ];
+      this.updateDoughnutChartData(newData);
+    }
   }
 
   getLastWeekData() {
     // Implement your logic to update barChartData for the last hour
-    const newData: ChartConfiguration<'doughnut'>['data']['datasets'] = [
-      { data: [ 60, 55, 31 ], label: 'Last Week A' },
-      { data: [ 14, 11, 0 ], label: 'Last Week B' },
-      { data: [ 14, 11, 0 ], label: 'Last Week C' }
-    ];
-    // Update the chart data
-    this.doughnutChartDatasets = newData;
+    const donutChart = data.charts.find(chart => 'donutchart' in chart)?.donutchart;
+  
+    if (donutChart) {
+      const newData: ChartConfiguration<'doughnut'>['data']['datasets'] = [
+        { data: donutChart.averages.week['Last Week A'], label: 'Last Week A' },
+        { data: donutChart.averages.week['Last Week B'], label: 'Last Week B' },
+        { data: donutChart.averages.week['Last Week C'], label: 'Last Week C' }
+      ];
+    }
   }
   
   saveAsPng() {

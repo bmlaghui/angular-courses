@@ -27,5 +27,7 @@ generatePDF() {
     doc.text('Hello world!', margins.left, margins.right);
     doc.save('a4.pdf');
   }
+
+  
 }
 
