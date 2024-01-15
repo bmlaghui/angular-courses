@@ -9,6 +9,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { NgChartsModule } from 'ng2-charts';
 import { LinechartComponent } from './components/linechart/linechart.component';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ProbesComponent } from './components/probes/probes.component';
 
 
 @Component({
@@ -24,7 +25,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
               ReactiveFormsModule,
               DashboardComponent,
               NgChartsModule,
-              LinechartComponent
+              LinechartComponent,
+              ProbesComponent
             ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

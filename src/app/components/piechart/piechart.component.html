@@ -35,9 +35,9 @@
     </div>
   </div>
   <div class="btn-group d-flex justify-content-center px-5" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="getLastHourData()">Hour</button>
-    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="getLastDayData()">Day</button>
-    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="getLastWeekData()">Week</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="getLastHourData()" [ngClass]="{'active': isHourButtonActive}">Hour</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="getLastDayData()" [ngClass]="{'active': isDayButtonActive}">Day</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="getLastWeekData()" [ngClass]="{'active': isWeekButtonActive}">Week</button>
   </div>
     <div class="content p-3">
       <canvas baseChart width="400" height="400"

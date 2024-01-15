@@ -1,3 +1,5 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ChartOptions } from 'chart.js';
 import jsPDF from 'jspdf';
@@ -6,70 +8,102 @@ import { NgChartsModule } from 'ng2-charts';
 @Component({
   selector: 'app-piechart',
   standalone: true,
-  imports: [NgChartsModule],
+  imports: [NgChartsModule, CommonModule, HttpClientModule],
   templateUrl: './piechart.component.html',
   styleUrl: './piechart.component.scss'
 })
 export class PiechartComponent implements OnInit {
   public pieChartTitle: string = 'Pie-Chart';
 
+  isHourButtonActive: boolean = false;
+  isDayButtonActive: boolean = false;
+  isWeekButtonActive: boolean = false;
+
   public pieChartOptions: ChartOptions<'pie'> = {
     responsive: true,
     plugins: {
       legend: {
-        display: false, // Display the legend
-        position: 'right', // or 'bottom', 'left', 'right'
-        align: 'center', // or 'start', 'end'
+        display: false,
+        position: 'bottom',
+        align: 'center',
         labels: {
-          boxWidth: 20, // Width of the colored box in the legend
-          padding: 5, // Padding between legend elements
-          usePointStyle: false, // Use a circular point style in the legend
+          boxWidth: 20,
+          padding: 5,
+          usePointStyle: false,
         }
       }
     }
   };
-  public pieChartLabels = [ 'Download Sales' ,  'In Store Sales' , 'Mail Sales' ];
-  public pieChartDatasets = [ {
-    data: [ 300, 500, 100 ]
-  } ];
-  public pieChartLegend = true;
-  public pieChartPlugins = [];
 
-  constructor() {
-  }
+  public pieChartLabels: string[] = [];
+  public pieChartDatasets: { data: number[] }[] = [{ data: [] }];
+  public pieChartLegend: boolean = true;
+  public pieChartPlugins: any[] = [];
+
+  constructor() {}
 
   ngOnInit(): void {
-    
+    this.getLastHourData();
   }
 
-  getLastHourData() {
-    // Implement your logic to update PieChartData for the last hour
-    const newData = [ 65, 59, 80 ];
-    // Update the chart data
-    this.pieChartDatasets = [ { data: newData } ];
+  async getLastHourData() {
+    try {
+      const response = await fetch('./assets/datasets/charts/pie-chart/hour.json');
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data. Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log("Datas=", data);
+  
+      this.pieChartLabels = data['labels'];
+      this.pieChartDatasets = [ { data: data['data'] } ];
+      this.pieChartTitle = data['title'];
+      this.isHourButtonActive = true;
+      this.isDayButtonActive = false;
+      this.isWeekButtonActive = false;
+
+
+    } catch (error) {
+      console.error('Error fetching or processing data:', error);
+    }
   }
 
-  getLastDayData() {
-    // Implement your logic to update PieChartData for the last hour
-    const newData = [ 60, 99, 3 ];
-    // Update the chart data
-    this.pieChartDatasets = [ { data: newData } ];
+  async getLastDayData() {
+    try{
+      const response = await fetch('./assets/datasets/charts/pie-chart/day.json');
+      const data = await response.json();
+      console.log(data['data']);
+      this.pieChartLabels = data['labels'];
+      this.pieChartDatasets = [ { data: data['data'] } ];
+      this.pieChartTitle = data['title'];
+      this.isHourButtonActive = false;
+      this.isDayButtonActive = true;
+      this.isWeekButtonActive = false;
+    }
+    catch(error){
+      console.log(error);
+    }
   }
 
-  getLastWeekData() {
-    // Implement your logic to update PieChartData for the last hour
-    const newData = [ 8, 5, 31 ];
-    // Update the chart data
-    this.pieChartDatasets = [ { data: newData } ];
+  async getLastWeekData() {
+    try{
+      const response = await fetch('./assets/datasets/charts/pie-chart/week.json');
+      const data = await response.json();
+      console.log(data['data']);
+      this.pieChartLabels = data['labels'];
+      this.pieChartDatasets = [ { data: data['data'] } ];
+      this.pieChartTitle = data['title'];
+      this.isHourButtonActive = false;
+      this.isDayButtonActive = false;
+      this.isWeekButtonActive = true;
+    }
+    catch(error){
+      console.log(error);
+    }
   }
 
-  getLastMonthData() {
-    // Implement your logic to update PieChartData for the last hour
-    const newData = [ 14, 11, 0 ];
-    // Update the chart data
-    this.pieChartDatasets = [ { data: newData } ];
-  }
-
+  
   saveAsPng() {
     const canvas = document.querySelector('#Pie-Chart') as HTMLCanvasElement;
     console.log(canvas);

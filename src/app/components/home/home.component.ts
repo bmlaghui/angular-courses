@@ -16,17 +16,26 @@ import { BarchartComponent } from '../barchart/barchart.component';
 export class HomeComponent {
  
 generatePDF() {
-    const doc = new jsPDF();
-    const margins = {
-      top: 30,
-      bottom: 30,
-      left: 10,
-      right: 10
-    }
-    doc.setFontSize(12);
-    doc.text('Hello world!', margins.left, margins.right);
-    doc.save('a4.pdf');
+      const doc = new jsPDF();
+      const margins = {
+        top: 30,
+        bottom: 30,
+        left: 10,
+        right: 10
+      }
+      doc.setFontSize(12);
+      doc.save('a4.pdf');
   }
+
+   changeWidgetsOrder(nb: number) {
+    const grahsDiv = document.querySelector('.graphs');
+
+    if (grahsDiv instanceof HTMLElement) {
+        grahsDiv.style.gridTemplateColumns = `repeat(${nb}, 1fr)`;
+    } else {
+        console.error('Element with class "grahs" not found.');
+    }
+}
 
   
 }

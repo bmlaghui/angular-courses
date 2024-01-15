@@ -33,9 +33,9 @@ export class BarchartComponent implements OnInit {
   
       const datasets = Object.keys(data['data']).map((key, index) => {
         const backgroundColors = [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
           // Add more colors as needed
         ];
   
@@ -67,13 +67,12 @@ export class BarchartComponent implements OnInit {
     try {
       const response = await fetch('./assets/datasets/charts/bar-chart/day.json');
       const data = await response.json();
-      console.log(data['data']);
   
       const datasets = Object.keys(data['data']).map((key, index) => {
         const backgroundColors = [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
           // Add more colors as needed
         ];
   
@@ -109,9 +108,9 @@ export class BarchartComponent implements OnInit {
   
       const datasets = Object.keys(data['data']).map((key, index) => {
         const backgroundColors = [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
           // Add more colors as needed
         ];
   

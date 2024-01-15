@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavigationComponent } from "../navigation/navigation.component";
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -9,7 +10,8 @@ import { NavigationComponent } from "../navigation/navigation.component";
     styleUrl: './dashboard.component.scss',
     imports: [
         RouterOutlet,
-        NavigationComponent
+        NavigationComponent,
+        SidebarComponent
     ]
 })
 export class DashboardComponent {

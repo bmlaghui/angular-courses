@@ -1,29 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartConfiguration } from 'chart.js';
+import { ChartConfiguration, ChartData } from 'chart.js';
 import jsPDF from 'jspdf';
 import { NgChartsModule } from 'ng2-charts';
-import * as data from '../../../assets/localData.json';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-donughtchart',
   standalone: true,
-  imports: [NgChartsModule],
+  imports: [NgChartsModule, CommonModule, HttpClientModule],
   templateUrl: './donughtchart.component.html',
   styleUrl: './donughtchart.component.scss'
 })
 export class DonughtchartComponent implements OnInit {
+  
+  isHourButtonActive: boolean = false;
+  isDayButtonActive: boolean = false;
+  isWeekButtonActive: boolean = false;
+
   public doughnutChartTitle: string = 'Doughnut-Chart';
-  public doughnutChartLabels: string[] = [ 'Download Sales', 'In-Store Sales', 'Mail-Order Sales' ];
+  public doughnutChartData: ChartData<'doughnut'> = {
+    labels: [],
+    datasets: []
+  };
+
+  public doughnutChartLabels: string[] = [];
   public doughnutChartDatasets: ChartConfiguration<'doughnut'>['data']['datasets'] = [
-     
-    ];
+
+  ];
+
 
   public doughnutChartOptions: ChartConfiguration<'doughnut'>['options'] = {
     responsive: true,
     plugins: {
       legend: {
-        display: false, // Display the legend
-        position: 'right', // or 'bottom', 'left', 'right'
+        display: true, // Display the legend
+        position: 'bottom', // or 'bottom', 'left', 'right'
         align: 'center', // or 'start', 'end'
         labels: {
           boxWidth: 20, // Width of the colored box in the legend
@@ -36,57 +48,112 @@ export class DonughtchartComponent implements OnInit {
   };
 
   constructor() {
-    console.log(data);
   }
 
   ngOnInit() {
     this.getLastHourData();
   }
 
-  getLastHourData() {
-    // Assuming data is the variable holding your JSON data
-    const donutChart = data.charts.find(chart => 'donutchart' in chart)?.donutchart;
+  async getLastHourData() {
+    try {
+      const response = await fetch('./assets/datasets/charts/donut-chart/hour.json');
+      const data = await response.json();
   
-    if (donutChart) {
-      const newData: ChartConfiguration<'doughnut'>['data']['datasets'] = [
-        { data: donutChart.averages.hour['Last Hour A'], label: 'Last Hour A' },
-        { data: donutChart.averages.hour['Last Hour B'], label: 'Last Hour B' },
-        { data: donutChart.averages.hour['Last Hour C'], label: 'Last Hour C' }
-      ];
+      const datasets = Object.keys(data['data']).map((key, index) => {
+        return {
+          data: data['data'][key],
+          label: key
+        };
+      });
   
-      this.updateDoughnutChartData(newData);
+      this.doughnutChartLabels = data['labels'];
+      
+  
+      const newData: ChartData<'doughnut'> = {
+        labels: data['labels'],
+        datasets: datasets,
+      };
+  
+      this.doughnutChartData = newData;
+      this.doughnutChartDatasets = datasets;
+    
+      // Set the active class state
+      this.isHourButtonActive = true;
+      this.isDayButtonActive = false;
+      this.isWeekButtonActive = false;
+  
+    } catch (error) {
+      console.error('Error fetching or processing data:', error);
     }
   }
-  
-  private updateDoughnutChartData(newData: ChartConfiguration<'doughnut'>['data']['datasets']): void {
-    this.doughnutChartDatasets = newData;
-  }
-  
 
-  getLastDayData() {
-    // Implement your logic to update barChartData for the last hour
-    const donutChart = data.charts.find(chart => 'donutchart' in chart)?.donutchart;
+  async getLastDayData() {
+    try {
+      const response = await fetch('./assets/datasets/charts/donut-chart/day.json');
+      const data = await response.json();
+      const datasets = Object.keys(data['data']).map((key, index) => {
+        return {
+          data: data['data'][key],
+          label: key
+        };
+      });
   
-    if (donutChart) {
-      const newData: ChartConfiguration<'doughnut'>['data']['datasets'] = [
-        { data: donutChart.averages.day['Last Day A'], label: 'Last Day A' },
-        { data: donutChart.averages.day['Last Day B'], label: 'Last Day B' },
-        { data: donutChart.averages.day['Last Day C'], label: 'Last Day C' }
-      ];
-      this.updateDoughnutChartData(newData);
+      this.doughnutChartLabels = data['labels'];
+      
+  
+      const newData: ChartData<'doughnut'> = {
+        labels: data['labels'],
+        datasets: datasets,
+      };
+  
+      this.doughnutChartData = newData;
+      this.doughnutChartDatasets = datasets;
+
+
+    
+      // Set the active class state
+      this.isHourButtonActive = true;
+      this.isDayButtonActive = false;
+      this.isWeekButtonActive = false;
+  
+    } catch (error) {
+      console.error('Error fetching or processing data:', error);
     }
-  }
+  } 
 
-  getLastWeekData() {
-    // Implement your logic to update barChartData for the last hour
-    const donutChart = data.charts.find(chart => 'donutchart' in chart)?.donutchart;
+  async getLastWeekData() {
+    try {
+      const response = await fetch('./assets/datasets/charts/donut-chart/week.json');
+      const data = await response.json();
   
-    if (donutChart) {
-      const newData: ChartConfiguration<'doughnut'>['data']['datasets'] = [
-        { data: donutChart.averages.week['Last Week A'], label: 'Last Week A' },
-        { data: donutChart.averages.week['Last Week B'], label: 'Last Week B' },
-        { data: donutChart.averages.week['Last Week C'], label: 'Last Week C' }
-      ];
+     
+      const datasets = Object.keys(data['data']).map((key, index) => {
+        return {
+          data: data['data'][key],
+          label: key
+        };
+      });
+  
+      this.doughnutChartLabels = data['labels'];
+      
+  
+      const newData: ChartData<'doughnut'> = {
+        labels: data['labels'],
+        datasets: datasets,
+      };
+  
+      this.doughnutChartData = newData;
+      this.doughnutChartDatasets = datasets;
+
+
+    
+      // Set the active class state
+      this.isHourButtonActive = true;
+      this.isDayButtonActive = false;
+      this.isWeekButtonActive = false;
+  
+    } catch (error) {
+      console.error('Error fetching or processing data:', error);
     }
   }
   

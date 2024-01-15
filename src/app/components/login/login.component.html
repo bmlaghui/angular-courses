@@ -1,58 +1,65 @@
-<div class="container-fluid login-section d-flex justify-content-center align-items-center">
-    <div class="card login-card shadow-lg">
-        <!-- card header -->
-        <div class="card-header p-3">
-            Login
-        </div>
+<div
+  class="container-fluid login-section d-flex justify-content-center align-items-center"
+>
+  <div class="card login-card shadow-lg">
+    <!-- card header -->
+    <div class="card-header p-3">Operator Login</div>
+    <!-- card body -->
+    <div class="card-body">
+      <form [formGroup]="loginForm">
+        <div class="row">
+          <div class="col-6">
+            <div class="col-auto mb-4">
+              <img src="../../../assets/images/login_title.jpg" />
+            </div>
 
-        <!-- card body -->
-        <div class="card-body">
-            <form [formGroup]="loginForm">
-                <div class="row">
-                    <div class="col-xl-12 mb-3">
-                        <label for="email" class="form-label">E-mail</label>
-                        <input type="email" 
-                            class="form-control" 
-                            id="E-mail" 
-                            aria-describedby="emailHelp"
-                            placeholder="toto@domaine.fr"
-                            formControlName="email" />
-                            @if(loginForm.controls['email'].hasError('required') && loginForm.controls['email'].touched) {
-                                <div class="text-danger">
-                                    Email is required
-                                </div>
-                            }
-                            @else if (loginForm.controls['email'].hasError('email') && loginForm.controls['email'].touched) {
-                                <div class="text-danger">
-                                    Email Format is wrong
-                                </div>
-                            }
-                          
-                            
-                    </div>
-                    <div class="col-xl-12 mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" 
-                            class="form-control" 
-                            id="password" 
-                            placeholder="**********"
-                            formControlName="password" />
-                            @if(loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched) {
-                                <div class="text-danger">
-                                    Password is required
-                                </div>
-                            }
-                           
-                    </div>
-                </div>
-            </form>
-        </div> 
-        <!-- card footer -->
-        <div class="card-footer">
-            <button 
-                class="btn btn-primary float-end"
-                (click)="submit()"
-                >Sign in</button>
+            <div class="col-xl-12 mb-3">
+              <label for="email" class="form-label">E-mail</label>
+              <input
+                type="email"
+                class="form-control"
+                id="E-mail"
+                aria-describedby="emailHelp"
+                placeholder="toto@domaine.fr"
+                formControlName="email"
+              />
+              @if(loginForm.controls['email'].hasError('required') &&
+              loginForm.controls['email'].touched) {
+              <div class="text-danger">Email is required</div>
+              } @else if (loginForm.controls['email'].hasError('email') &&
+              loginForm.controls['email'].touched) {
+              <div class="text-danger">Email Format is wrong</div>
+              }
+            </div>
+            <div class="col-xl-12 mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="**********"
+                formControlName="password"
+              />
+              @if(loginForm.controls['password'].hasError('required') &&
+              loginForm.controls['password'].touched) {
+              <div class="text-danger">Password is required</div>
+              }
+            </div>
+          </div>
+          <div class="col-6">
+            <img src="../../../assets/images/icon-hacker.png" alt="">
+            <div class="api">
+                Jizô-M Server <span class="badge-success">Connected</span>
+            </div>
+          </div>
         </div>
+      </form>
     </div>
+    <!-- card footer -->
+    <div class="card-footer">
+      <button class="btn btn-yellow float-end" (click)="submit()">
+        Sign in
+      </button>
+    </div>
+  </div>
 </div>

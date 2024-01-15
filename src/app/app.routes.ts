@@ -8,6 +8,7 @@ import { InventoryComponent } from './components/inventory/inventory.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { SalesComponent } from './components/sales/sales.component';
 import { CustomersComponent } from './components/customers/customers.component';
+import { ProbesComponent } from './components/probes/probes.component';
 
 export const routes: Routes = [
     {
@@ -27,8 +28,8 @@ export const routes: Routes = [
                 component: HomeComponent
             },
             {
-                path: 'products',
-                component: ProductsComponent
+                path: 'probes',
+                component: ProbesComponent
             },
             {
                 path: 'inventory',
